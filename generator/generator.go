@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/axiom/rgbtxt"
+	"github.com/axiom/rgbtxt/parse"
 	"io"
 	"os"
 	"text/template"
@@ -40,10 +40,10 @@ func main() {
 	}
 
 	seen := make(map[string]bool)
-	colorPairs := make(chan rgbtxt.ColorPair, 100)
-	dedupPairs := make(chan rgbtxt.ColorPair, 100)
+	colorPairs := make(chan parse.ColorPair, 100)
+	dedupPairs := make(chan parse.ColorPair, 100)
 	go func() {
-		if err := rgbtxt.ParseLinesChan(input, colorPairs); err != nil {
+		if err := parse.ParseLinesChan(input, colorPairs); err != nil {
 			panic(err)
 		}
 	}()
